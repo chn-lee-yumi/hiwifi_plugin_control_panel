@@ -131,7 +131,7 @@ ping_opt_switch(){
 }
 
 
-controller_path=/usr/lib/lua/luci/controller/admin_web/control_panel.lua
+controller_path=/usr/lib/lua/luci/controller/admin_web/why_i_cant_use_name_cp.lua
 view_cp_main_path=/usr/lib/lua/luci/view/admin_web/cp_main.htm
 view_cp_monitor_path=/usr/lib/lua/luci/view/admin_web/cp_monitor.htm
 view_cp_tools_path=/usr/lib/lua/luci/view/admin_web/cp_tools.htm
