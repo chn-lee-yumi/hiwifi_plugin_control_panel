@@ -156,7 +156,7 @@ update_res(){
     wget http://139.129.20.107/hiwifi_contorl_panel/cp_monitor.htm -O $view_cp_monitor_path
     wget http://139.129.20.107/hiwifi_contorl_panel/cp_tools.htm -O $view_cp_tools_path
     wget http://139.129.20.107/hiwifi_contorl_panel/cp_function.htm -O $view_cp_function_path
-    wget http://139.129.20.107/hiwifi_contorl_panel/cp.lua -O $controller_path
+    wget http://139.129.20.107/hiwifi_contorl_panel/why_i_cant_use_name_cp.lua -O $controller_path
     wget http://139.129.20.107/hiwifi_contorl_panel/cp.sh -O $sh_path
     wget http://139.129.20.107/hiwifi_contorl_panel/cp2.sh -O $sh2_path
     wget http://139.129.20.107/hiwifi_contorl_panel/cp-log.lua -O $sh_log_path
