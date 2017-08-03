@@ -177,7 +177,7 @@ install_cp(){
     cp cp.sh $sh_path
     cp cp2.sh $sh2_path
     cp cp-log.lua $sh_log_path
-    cp -r /www
+    cp -r cp /www
     rm /var/run/luci-indexcache
     start
     sed -i 's/<span class="ft-nav">/<span class="ft-nav"><a href="..\/cp\/main" target="_blank">服务器控制面板<\/a><span>\&nbsp;\&nbsp;<\/span>\|<span>\&nbsp;\&nbsp;<\/span>/g' /usr/lib/lua/luci/view/admin_web/footer.htm
