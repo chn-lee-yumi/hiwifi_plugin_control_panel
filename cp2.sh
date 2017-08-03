@@ -169,7 +169,7 @@ update_res(){
 install_cp(){
     cp hiwifi_control_panel /etc/init.d
     chmod +x /etc/init.d/hiwifi_control_panel
-    cp control_panel.lua $controller_path
+    cp why_i_cant_use_name_cp.lua $controller_path
     cp cp_main.htm $view_cp_main_path
     cp cp_monitor.htm $view_cp_monitor_path
     cp cp_tools.htm $view_cp_tools_path
