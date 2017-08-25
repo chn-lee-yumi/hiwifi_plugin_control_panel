@@ -3,6 +3,7 @@
 mem_opt_path=/etc/rc.d/S99cp_mem_opt
 ping_opt_path=/etc/rc.d/S99cp_ping_opt
 samba_opt_path=/etc/rc.d/S99cp_samba_opt
+nat_opt_path=/etc/rc.d/S99cp_nat_opt
 
 samba_opt_on(){
     sed -i 's/SO_RCVBUF=[0-9]*/SO_RCVBUF=655360/g' /etc/samba/smb.conf.template
@@ -130,6 +131,46 @@ ping_opt_switch(){
     echo $(ping_opt_status)
 }
 
+nat_opt_on(){
+    iptables -t nat -D zone_wan_postrouting -j MASQUERADE
+    (
+    cat <<EOF
+#!/bin/sh /etc/rc.common
+
+START=99
+
+start(){
+    iptables -t nat -D zone_wan_postrouting -j MASQUERADE
+}
+EOF
+    ) > $nat_opt_path
+    chmod 777 $nat_opt_path
+}
+
+nat_opt_off(){
+    rm $nat_opt_path
+    iptables -t nat -I zone_wan_postrouting -j MASQUERADE
+}
+
+nat_opt_status(){
+    status_1=$(iptables -t nat -L zone_wan_postrouting | grep MASQUERADE)
+    if [ ! -n "$status_1" ]; then
+        echo "打开"
+    else
+        echo "关闭"
+    fi
+}
+
+nat_opt_switch(){
+    if [ $(nat_opt_status) = "打开" ]; then
+        nat_opt_off
+    else
+        nat_opt_on
+    fi
+    echo $(nat_opt_status)
+}
+
+
 
 controller_path=/usr/lib/lua/luci/controller/admin_web/why_i_cant_use_name_cp.lua
 view_cp_main_path=/usr/lib/lua/luci/view/admin_web/cp_main.htm
@@ -184,6 +225,7 @@ install_cp(){
     echo $mem_opt_path >> /lib/upgrade/keep.d/hiwifi_control_panel
     echo $ping_opt_path >> /lib/upgrade/keep.d/hiwifi_control_panel
     echo $samba_opt_path >> /lib/upgrade/keep.d/hiwifi_control_panel
+    echo $nat_opt_path >> /lib/upgrade/keep.d/hiwifi_control_panel
 }
 
 uninstall_cp(){

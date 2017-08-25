@@ -1,6 +1,6 @@
 <%
 local res_ver = luci.sys.exec("wget http://139.129.20.107/hiwifi_contorl_panel/ -O -t 2 -T 1 -")
-local res_local_ver = "20170729"
+local res_local_ver = "20170825"
 %>
 <!DOCTYPE html>
 <html>
@@ -34,6 +34,10 @@ local res_local_ver = "20170729"
                     $("#ping_opt_status").html("当前状态："+data);
                 });
                 
+                $.get("nat_opt_status",function(data,status){
+                    $("#nat_opt_status").html("当前状态："+data);
+                });
+                
                 $("#samba_opt_switch").click(function(){
                     $.get("samba_opt_switch",function(data,status){
                         $.get("samba_opt_status",function(data,status){
@@ -54,6 +58,14 @@ local res_local_ver = "20170729"
                     $.get("ping_opt_switch",function(data,status){
                         $.get("ping_opt_status",function(data,status){
                             $("#ping_opt_status").html("当前状态："+data);
+                        });
+                    });
+                });
+                
+                $("#nat_opt_switch").click(function(){
+                    $.get("nat_opt_switch",function(data,status){
+                        $.get("nat_opt_status",function(data,status){
+                            $("#nat_opt_status").html("当前状态："+data);
                         });
                     });
                 });
@@ -114,6 +126,7 @@ local res_local_ver = "20170729"
                           <li class="dropdown-header">其它功能</li>
                           <li><a href="function#opt">性能优化</a></li>
                           <li><a href="function#security">安全</a></li>
+                          <li><a href="function#others">杂项</a></li>
                         </ul>
                       </li>
                       <li class="dropdown">
@@ -360,6 +373,17 @@ local res_local_ver = "20170729"
                             <div class="col-md-12">
                                 <h3><span class="label label-info">禁Ping</span></h3>
                                 <p><span><strong>打开这个选项，服务器将不会理会 ICMP Echo 报文，其它机器将不能用ping命令发现服务器。可以避开一些漏洞扫描工具的扫描。</strong></span> <span id="ping_opt_status"></span> <span><button id="ping_opt_switch" type="button" class="btn btn-xs btn-default">打开/关闭</button></span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="page-header">
+                            <h2 id="others">杂项</h2>
+                        </div>
+                        
+                        <div class="row well">
+                            <div class="col-md-12">
+                                <h3><span class="label label-info">NAT</span></h3>
+                                <p><span><strong>路由器默认开启NAT。如果需要内网多个路由器的LAN互通，就需要关闭NAT。</strong></span> <span id="nat_opt_status"></span> <span><button id="nat_opt_switch" type="button" class="btn btn-xs btn-default">打开/关闭</button></span></p>
                             </div>
                         </div>
                         

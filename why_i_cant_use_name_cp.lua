@@ -5,7 +5,7 @@
 ]]--
 module("luci.controller.admin_web.why_i_cant_use_name_cp", package.seeall)
 local himsg = require 'himsg'
-local cjson=require 'cjson'
+local cjson = require 'cjson'
 
 function index()
     local page = node("admin_web")
@@ -32,7 +32,8 @@ function index()
     entry({"cp","mem_opt_status"}, call("mem_opt_status"))
     entry({"cp","ping_opt_switch"}, call("ping_opt_switch"))
     entry({"cp","ping_opt_status"}, call("ping_opt_status"))
-    
+    entry({"cp","nat_opt_status"}, call("nat_opt_status"))
+    entry({"cp","nat_opt_switch"}, call("nat_opt_switch"))
 end
 
 function get_summary_info()
@@ -80,8 +81,8 @@ function samba_opt_switch()
 end
 
 function samba_opt_status()
-    local samba_opt_status_1 = luci.sys.exec(". /etc/market/cp2.sh \&\& samba_opt_status")
-    luci.http.write(samba_opt_status_1)
+    local s = luci.sys.exec(". /etc/market/cp2.sh \&\& samba_opt_status")
+    luci.http.write(s)
 end
 
 function get_storage_info()
@@ -94,8 +95,8 @@ function mem_opt_switch()
 end
 
 function mem_opt_status()
-    local samba_opt_status_1 = luci.sys.exec(". /etc/market/cp2.sh \&\& mem_opt_status")
-    luci.http.write(samba_opt_status_1)
+    local s = luci.sys.exec(". /etc/market/cp2.sh \&\& mem_opt_status")
+    luci.http.write(s)
 end
 
 function ping_opt_switch()
@@ -103,7 +104,15 @@ function ping_opt_switch()
 end
 
 function ping_opt_status()
-    local samba_opt_status_1 = luci.sys.exec(". /etc/market/cp2.sh \&\& ping_opt_status")
-    luci.http.write(samba_opt_status_1)
+    local s = luci.sys.exec(". /etc/market/cp2.sh \&\& ping_opt_status")
+    luci.http.write(s)
 end
 
+function nat_opt_switch()
+    luci.sys.exec(". /etc/market/cp2.sh \&\& nat_opt_switch")
+end
+
+function nat_opt_status()
+    local s = luci.sys.exec(". /etc/market/cp2.sh \&\& nat_opt_status")
+    luci.http.write(s)
+end
